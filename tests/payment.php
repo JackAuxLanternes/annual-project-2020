@@ -1,23 +1,21 @@
 <?php
 require '../vendor/autoload.php';
 use Stripe\Charge;
+use Stripe\Customer;
 use Stripe\Stripe;
-if ($_POST) {
-    Stripe::setApiKey("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");
-    $error = '';
-    $success = '';
-    try {
-        if (!isset($_POST['stripeToken']))
-            throw new Exception("The Stripe Token was not generated correctly");
-        Charge::create(array("amount" => 1000,
-            "currency" => "usd",
-            "card" => $_POST['stripeToken']));
-        $success = 'Your payment was successful.';
-    }
-    catch (Exception $e) {
-        $error = $e->getMessage();
-    }
-}
+Stripe::setApiKey('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');
+$token = $_POST['stripeToken'];
+
+// Create a Customer
+$customer = Customer::create(array(
+    "email" => 'qrouville@gmail.com',
+    "source" => $token,
+));
+$charge = Charge::create(array(
+    "amount" => 10,
+    "currency" => "eur",
+    "customer" => $customer->id
+));
 
 ?>
 
@@ -31,7 +29,7 @@ if ($_POST) {
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
     <script type="text/javascript">
         // Stripe API Key
-        var stripe = Stripe('pk_test_51HK0YHKpVW5i0Eena5Y8atVXHhyhdoknAA5XyrR648TeI0EdKUk2XpPiQACxpMe0Vp1mfSYJe1f6o05awvt1nbMQ00o7bGJSFx');
+        var stripe = Stripe('pk_test_ITir6zwGY7h79ozLJnFY8Kyk00mN2eoPJT');
         var elements = stripe.elements();
         // Custom Styling
         var style = {
