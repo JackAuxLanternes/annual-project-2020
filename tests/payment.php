@@ -1,6 +1,7 @@
 <?php
 require '../vendor/autoload.php';
-
+use Stripe\Charge;
+use Stripe\Stripe;
 if ($_POST) {
     Stripe::setApiKey("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");
     $error = '';
@@ -8,7 +9,7 @@ if ($_POST) {
     try {
         if (!isset($_POST['stripeToken']))
             throw new Exception("The Stripe Token was not generated correctly");
-        Stripe_Charge::create(array("amount" => 1000,
+        Charge::create(array("amount" => 1000,
             "currency" => "usd",
             "card" => $_POST['stripeToken']));
         $success = 'Your payment was successful.';
@@ -25,45 +26,70 @@ if ($_POST) {
 <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <title>Stripe Getting Started Form</title>
-    <script type="text/javascript" src="https://js.stripe.com/v1/"></script>
+    <script type="text/javascript" src="https://js.stripe.com/v3/"></script>
     <!-- jQuery is used only for this example; it isn't required to use Stripe -->
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
     <script type="text/javascript">
-        // this identifies your website in the createToken call below
-        Stripe.setPublishableKey('pk_test_51HK0YHKpVW5i0Eena5Y8atVXHhyhdoknAA5XyrR648TeI0EdKUk2XpPiQACxpMe0Vp1mfSYJe1f6o05awvt1nbMQ00o7bGJSFx');
-
-        function stripeResponseHandler(status, response) {
-            if (response.error) {
-                // re-enable the submit button
-                $('.submit-button').removeAttr("disabled");
-                // show the errors on the form
-                $(".payment-errors").html(response.error.message);
-            } else {
-                var form$ = $("#payment-form");
-                // token contains id, last4, and card type
-                var token = response['id'];
-                // insert the token into the form so it gets submitted to the server
-                form$.append("<input type='hidden' name='stripeToken' value='" + token + "' />");
-                // and submit
-                form$.get(0).submit();
+        // Stripe API Key
+        var stripe = Stripe('pk_test_51HK0YHKpVW5i0Eena5Y8atVXHhyhdoknAA5XyrR648TeI0EdKUk2XpPiQACxpMe0Vp1mfSYJe1f6o05awvt1nbMQ00o7bGJSFx');
+        var elements = stripe.elements();
+        // Custom Styling
+        var style = {
+            base: {
+                color: '#32325d',
+                lineHeight: '24px',
+                fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+                fontSmoothing: 'antialiased',
+                fontSize: '16px',
+                '::placeholder': {
+                    color: '#aab7c4'
+                }
+            },
+            invalid: {
+                color: '#fa755a',
+                iconColor: '#fa755a'
             }
-        }
-
-        $(document).ready(function() {
-            $("#payment-form").submit(function(event) {
-                // disable the submit button to prevent repeated clicks
-                $('.submit-button').attr("disabled", "disabled");
-
-                // createToken returns immediately - the supplied callback submits the form if there are no errors
-                Stripe.createToken({
-                    number: $('.card-number').val(),
-                    cvc: $('.card-cvc').val(),
-                    exp_month: $('.card-expiry-month').val(),
-                    exp_year: $('.card-expiry-year').val()
-                }, stripeResponseHandler);
-                return false; // submit from callback
+        };
+        // Create an instance of the card Element
+        var card = elements.create('card', {style: style});
+        // Add an instance of the card Element into the `card-element` <div>
+        card.mount('#card-element');
+        // Handle real-time validation errors from the card Element.
+        card.addEventListener('change', function(event) {
+            var displayError = document.getElementById('card-errors');
+            if (event.error) {
+                displayError.textContent = event.error.message;
+            } else {
+                displayError.textContent = '';
+            }
+        });
+        // Handle form submission
+        var form = document.getElementById('payment-form');
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            stripe.createToken(card).then(function(result) {
+                if (result.error) {
+                    // Inform the user if there was an error
+                    var errorElement = document.getElementById('card-errors');
+                    errorElement.textContent = result.error.message;
+                } else {
+                    stripeTokenHandler(result.token);
+                }
             });
         });
+        // Send Stripe Token to Server
+        function stripeTokenHandler(token) {
+            // Insert the token ID into the form so it gets submitted to the server
+            var form = document.getElementById('payment-form');
+// Add Stripe Token to hidden input
+            var hiddenInput = document.createElement('input');
+            hiddenInput.setAttribute('type', 'hidden');
+            hiddenInput.setAttribute('name', 'stripeToken');
+            hiddenInput.setAttribute('value', token.id);
+            form.appendChild(hiddenInput);
+// Submit form
+            form.submit();
+        }
     </script>
 </head>
 <body>
