@@ -1,22 +1,10 @@
 <?php
+$startTime = new \DateTime('2020-12-12 20:00:00');
 
-require_once ('../utils/database/databasemanager.php');
-$database = new DatabaseManager();
+$rule = new \Scheduler\Job\RRule('FREQ=MONTHLY;COUNT=5', $startTime); //run monthly, at 20:00:00 starting from the 12th of December 2017, 5 times
 
-$servicedata = $database->find("SELECT * FROM service WHERE id=?", ['06e085b3-ed29-4efa-8699-a7012c5908d3']);
+$job = new \Scheduler\Job\Job($rule, function () {
 
-if($servicedata != null){
+    //do something
 
-    switch ($servicedata['flow_frequency_shape']){?><?php
-        case 'hours':
-            ?>checkedh<?php
-            break;
-        case 'day':
-            ?>checkedd<?php
-            break;
-        default:
-            echo 'checked';
-            echo 'value="' . $servicedata['flow_frequency_shape'] . '"';
-    }
-}
-else echo "Rat thé";
+});
