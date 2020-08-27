@@ -55,7 +55,7 @@ if($subData !== null) header('Location:../index.php');
     }
     ?>
 
-    <form action="check/add_subscription.php?<?php echo $_GET['item']?>" method="POST" id="payment-form">
+    <form action="check/add_subscription.php?item=<?php echo $_GET['item']?>" method="POST" id="payment-form">
         <div id="card-element"></div>
         <div class="text-center"><button type="submit" class="btn btn-warning" style="margin: 1em">Submit Payment</button></div>
     </form>

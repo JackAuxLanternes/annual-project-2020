@@ -21,12 +21,6 @@ class servicemanager extends form
         string $picturename
     ):string{
 
-        echo "<br>name :" . $name;
-        echo "<br>price :" . $price;
-        echo "<br>flow :" . $flowfrequency;
-        echo "<br>hours :" . $minhours;
-        echo "<br>picture :" . $picturename;
-
         $affectedrows = $this->db->exec('INSERT INTO service VALUES (?,?,?,?,?,?)',
             [
                 $this->db->uuid(),

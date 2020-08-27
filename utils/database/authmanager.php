@@ -42,7 +42,7 @@ class authmanager extends form
 
     public function signin(string $email, string $password): ?string {
 
-        $userData = $this->db->find('SELECT * FROM user WHERE email = ?', [$email]);
+        $userData = $this->db->find('SELECT password FROM user WHERE email = ?', [$email]);
 
         if ($userData === null) return "notfound";
 
