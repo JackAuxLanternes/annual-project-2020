@@ -1,5 +1,6 @@
 <?php
 include('../includes/config.php');
+if(!$connected) header('Location:../index.php');
 ?>
 
 <!Doctype HTML>
@@ -236,17 +237,85 @@ include('../includes/header.php');
 
                 if($subData === null){?>
                 <p>Vous n'avez souscrit à aucun abonnement</p>
-                <a class='btn btn-warning'>Souscrivez à un abonnement</a>
+                <form class="form-signin"
+                      action="check/add_subscription.php"
+                      method="post"
+                      enctype="multipart/form-data">
+                    <div class="row text-center">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="subscriptionRadios" id="subscriptionRadiosBase" value="base">
+                            <label class="form-check-label" for="subscriptionRadiosBase">
+
+                                <div class="col d-flex justify-content-center">
+                                    <div class="card" style="width: 18rem;">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Abonnement de base</h5>
+                                            <p class="card-text">Bénéficiez d'un accès privilégié en illimité 5j/7 de 9h à 20h</p>
+                                            <p class="card-text">Demandes illimitées de renseignement</p>
+                                            <p class="card-text">12h de service/mois</p>
+                                            <p class="card-text">2 400€ TTC /an</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </label>
+                        </div>
+
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="subscriptionRadios" id="subscriptionRadiosFamilly" value="familly">
+                            <label class="form-check-label" for="subscriptionRadiosFamilly">
+
+                                <div class="col d-flex justify-content-center">
+                                    <div class="card" style="width: 18rem;">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Abonnement Famillial</h5>
+                                            <p class="card-text">Bénéficiez d'un accès privilégié en illimité 6j/7 de 9h à 20h</p>
+                                            <p class="card-text">Demandes illimitées de renseignement</p>
+                                            <p class="card-text">25h de service/mois</p>
+                                            <p class="card-text">3 600€ TTC /an</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </label>
+                        </div>
+
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="subscriptionRadios" id="subscriptionRadiosPremium" value="premium" >
+                            <label class="form-check-label" for="subscriptionRadiosPremium">
+
+                                <div class="col d-flex justify-content-center">
+                                    <div class="card" style="width: 18rem;">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Abonnement Premium</h5>
+                                            <p class="card-text">Bénéficiez d'un accès privilégié en illimité 7j/7 24h/24</p>
+                                            <p class="card-text">Demandes illimitées de renseignement</p>
+                                            <p class="card-text">50h de service/mois</p>
+                                            <p class="card-text">6 000€ TTC /an</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </label>
+                        </div>
+                    </div>
+                    <input type="submit" class='btn btn-warning' value="Souscrivez à un abonnement" style="margin-top: 1em">
+                </form>
 
                 <?php
                 }
-                else
-                ?>
+                else{
+                    echo "Vous avez un abonnement : " . $subData['type'];
+                }?>
 
             </div>
 
             <div class="text-center" style="padding: 2em;">
                 <h1>Historique des commandes</h1>
+            </div>
+
+            <div class="text-center" style="padding: 2em;">
+                <h1>Factures</h1>
             </div>
 
         </div>

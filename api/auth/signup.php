@@ -193,7 +193,7 @@ if($connected) header('Location:../index.php');
             </div>
 
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="subscriptionRadios" id="subscriptionRadiosPremium" value="premimum" >
+                <input class="form-check-input" type="radio" name="subscriptionRadios" id="subscriptionRadiosPremium" value="premium" >
                 <label class="form-check-label" for="subscriptionRadiosPremium">
 
                     <div class="col d-flex justify-content-center">

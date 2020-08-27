@@ -39,7 +39,7 @@ if($result == 'done'){
         exit();
     }
     else{
-        header('Location:../../payment/add_cart.php?item=' . $_POST['subscriptionRadios']);
+        header('Location:../../subscription/add_subscription.php?item=' . $_POST['subscriptionRadios']);
         exit();
     }
 }

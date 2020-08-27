@@ -2,7 +2,7 @@
 
 
 
-$uploaddir = '/var/www/html/htdocs/2ème année/Projet Annuel (Rattrapage)/Website/tests/';
+$uploaddir = '/var/www/html/htdocs/2ème année/Projet Annuel (Rattrapage)/Website/.tests/';
 $uploadfile = $uploaddir . basename($_FILES['userfile']['name']);
 
 echo "<p>";
