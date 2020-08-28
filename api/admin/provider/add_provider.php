@@ -7,7 +7,7 @@ if($_SESSION['user'] != "administration@esgi.fr") header("Location:../../index.p
 <html lang="fr">
 <head>
     <meta charset="UTF-8"/>
-    <title>Perfect Concierge - Ajouter un service</title>
+    <title>Perfect Concierge - Ajouter un prestataire</title>
     <meta name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet"
@@ -20,101 +20,137 @@ if($_SESSION['user'] != "administration@esgi.fr") header("Location:../../index.p
 
 <div class="container">
     <div class="text-center" style="padding: 2em;">
-        <h1>Ajouter un service</h1>
+        <h1>Ajouter un prestataire</h1>
         Toutes les informations sont obligatoire et seront modifiables par la suite
     </div>
 
     <form class="form-signin"
-          action="check/add_service.php"
+          action="check/add_provider.php"
           method="post"
           enctype="multipart/form-data">
 
-        <div class="form-group row">
-            <label for="inputName"
-                   class="col-sm-2 col-form-label">
-                Nom
-            </label>
-            <div class="col-sm-10">
-                <input type="text"
-                       class="form-control"
-                       name="inputName"
-                       id="inputName"
-                       required>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="inputPrice"
-                   class="col-sm-2 col-form-label">
-                Prix (TTC)
-            </label>
-            <div class="col-sm-10">
-                <input type="number"
-                       class="form-control"
-                       id="inputPrice"
-                       name="inputPrice"
-                       placeholder="€"
-                       required>
-            </div>
-        </div>
-        <fieldset class="form-group">
-            <div class="row">
-                <legend class="col-form-label col-sm-2 pt-0">Fréquence de paiement</legend>
+        <form class="form-signin"
+              action="check/add_provider.php"
+              method="post"
+              enctype="multipart/form-data">
+
+            <div class="form-group row">
+                <label for="inputLastName"
+                       class="col-sm-2 col-form-label">
+                    Nom
+                </label>
                 <div class="col-sm-10">
-                    <div class="form-check">
-                        <input class="form-check-input"
-                               type="radio"
-                               name="inputFrequency"
-                               id="inputFrequencyHours"
-                               value="hours">
-                        <label class="form-check-label" for="inputFrequencyHours">
-                            De l'heure
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input"
-                               type="radio"
-                               name="inputFrequency"
-                               id="inputFrequencyDay"
-                               value="day">
-                        <label class="form-check-label" for="inputFrequencyDay">
-                            La journée
-                        </label>
-                    </div>
-                    <div class="form-check disabled">
-                        <input class="form-check-input"
-                               type="radio"
-                               name="inputFrequency"
-                               id="inputFrequencyOther"
-                               value="other">
-                        <label class="form-check-label" for="inputFrequencyOther">
-                            Autre : <input type="text" name="inputOtherFrequence" placeholder="ex : la visite">
-                        </label>
-                    </div>
+                    <input type="text"
+                           class="form-control"
+                           name="inputLastName"
+                           id="inputLastName"
+                           required>
                 </div>
             </div>
-        </fieldset>
-        <div class="form-group row">
-            <label for="inputMin"
-                   class="col-sm-2 col-form-label">
-                Heures minimum à commander (0 si aucune)
-            </label>
-            <div class="col-sm-10">
-                <input type="number"
-                       class="form-control"
-                       id="inputMin"
-                       name="inputMin"
-                       required>
+            <div class="form-group row">
+                <label for="inputFirstName"
+                       class="col-sm-2 col-form-label">
+                    Prénom
+                </label>
+                <div class="col-sm-10">
+                    <input type="text"
+                           class="form-control"
+                           id="inputFirstName"
+                           name="inputFirstName"
+                           required>
+                </div>
             </div>
-        </div>
-        <div class="form-group row">
-            <div class="col-sm-2">Photo d'illustration</div>
-            <div class="col-sm-10">
-                <input type="file"
-                       class="form-control-file"
-                       id="filePicture"
-                       name="filePicture">
+            <div class="form-group row">
+                <label for="inputEmail"
+                       class="col-sm-2 col-form-label">
+                    Adresse email
+                </label>
+                <div class="col-sm-10">
+                    <input type="email"
+                           class="form-control"
+                           id="inputEmail"
+                           name="inputEmail"
+                           required>
+                </div>
             </div>
-        </div>
+            <div class="form-group row">
+                <label for="inputPhone"
+                       class="col-sm-2 col-form-label">
+                    Numéro de téléphone
+                </label>
+                <div class="col-sm-10">
+                    <input type="tel"
+                           class="form-control"
+                           id="inputPhone"
+                           name="inputPhone"
+                           required>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputAddress"
+                       class="col-sm-2 col-form-label">
+                    Adresse
+                </label>
+                <div class="col-sm-10">
+                    <input type="text"
+                           class="form-control"
+                           id="inputAddress"
+                           name="inputAddress"
+                           required>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputCity"
+                       class="col-sm-2 col-form-label">
+                    Ville
+                </label>
+                <div class="col-sm-10">
+                    <input type="text"
+                           class="form-control"
+                           id="inputCity"
+                           name="inputCity"
+                           required>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputZip"
+                       class="col-sm-2 col-form-label">
+                    Code postal
+                </label>
+                <div class="col-sm-10">
+                    <input type="text"
+                           class="form-control"
+                           id="inputZip"
+                           name="inputZip"
+                           required>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputPassword"
+                       class="col-sm-2 col-form-label">
+                    Mot de passe
+                </label>
+                <div class="col-sm-10">
+                    <input type="password"
+                           class="form-control"
+                           id="inputPassword"
+                           name="inputPassword"
+                           required>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputRePassword"
+                       class="col-sm-2 col-form-label">
+                    Confirmer le mot de passe
+                </label>
+                <div class="col-sm-10">
+                    <input type="password"
+                           class="form-control"
+                           id="inputRePassword"
+                           name="inputRePassword"
+                           required>
+                </div>
+            </div>
 
 
         <p class="error text-center" style="color: red; padding: 1em;">
@@ -131,7 +167,7 @@ if($_SESSION['user'] != "administration@esgi.fr") header("Location:../../index.p
                 ?>
             </b>
         </p>
-        <button class="btn btn-lg btn-warning btn-block" type="submit">Ajouter le service</button>
+        <button class="btn btn-lg btn-warning btn-block" type="submit">Ajouter un prestataire</button>
     </form>
     <?php include('../../includes/footer.php');?>
 </div>

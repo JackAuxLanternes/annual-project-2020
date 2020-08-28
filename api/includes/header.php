@@ -2,7 +2,7 @@
     <div class="container">
         <a class="navbar-brand" href="<?php echo $currentdirectory;?>/api/index.php">Perfect concierge</a>
         <nav class="my-2 my-md-0 mr-md-3">
-            <a class="p-2 text-dark" href="quote/select_quote.php">Demander un devis</a>
+            <a class="p-2 text-dark" href="<?php echo $currentdirectory;?>/api/quote/select_quote.php">Demander un devis</a>
             <div class="btn-group">
                 <button type="button"
                         class="btn btn-warning dropdown-toggle"

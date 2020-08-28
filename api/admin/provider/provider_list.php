@@ -45,21 +45,21 @@ if($_SESSION['user'] != "administration@esgi.fr") header("Location:../../index.p
 <div class="container">
     <div class="py-5 text-center">
         <h2>Réservation</h2>
-        <p class="lead">Voir et ajouter des services</p>
+        <p class="lead">Voir et ajouter des prestataires</p>
     </div>
 
     <div class="row">
         <div class="col-md-12 order-md-2 mb-4">
             <h4 class="d-flex justify-content-between align-items-center mb-3">
-                <span class="text-muted">Liste des services</span>
-                <a href="add_service.php">
-                    <button type="button" class="btn btn-warning">Ajouter un service</button>
+                <span class="text-muted">Liste des prestataires</span>
+                <a href="add_provider.php">
+                    <button type="button" class="btn btn-warning">Ajouter un prestataire</button>
                 </a>
             </h4>
 
             <?php
 
-            $req = $database->getPdo()->query('SELECT * FROM service');
+            $req = $database->getPdo()->query("SELECT * FROM user WHERE statut='provider'");
 
             foreach($req as $service) {
 
