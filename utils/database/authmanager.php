@@ -119,19 +119,14 @@ class authmanager extends form
         string $address,
         string $city,
         string $zip,
-        string $password,
-        string $newpassword,
-        bool $isrepassword
+        string $password
     ):string
     {
 
         $userData = $this->db->find('SELECT * FROM user WHERE email = ?', [$email]);
         if ($userData === null) return "notfound";
-        $hash = $userData['password'];
-        if (!password_verify($password, $hash)) return "notgood";
 
-        if(!$isrepassword) $hashed = password_hash($password, PASSWORD_ARGON2ID);
-        else $hashed = password_hash($newpassword, PASSWORD_ARGON2ID);
+        $hashed = password_hash($password, PASSWORD_ARGON2ID);
 
         $affectedRows = $this->db->exec(
             "UPDATE user SET last_name=?, first_name=?, password=?, phone=?, address=?, city=?, zip=? WHERE email=?",
@@ -141,4 +136,7 @@ class authmanager extends form
         return "done";
     }
 
+    public function delete_provider(string $email){
+        return $this->db->exec("DELETE FROM user WHERE email = '$email'");
+    }
 }

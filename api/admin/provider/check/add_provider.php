@@ -36,7 +36,7 @@ $result = $service->add_provider(
 );
 
 if($result == 'done'){
-        header('Location:../../../index.php');
+        header('Location:../provider_list.php');
         exit();
 }
 else {

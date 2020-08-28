@@ -5,8 +5,8 @@ if($_SESSION['user'] != "administration@esgi.fr"){
     header('Location:/api/index.php');
 }
 
-require_once __DIR__ . '/../../../../utils/database/servicemanager.php';
+require_once __DIR__ . '/../../../../utils/database/authmanager.php';
 
-$service = new servicemanager();
+$service = new authmanager();
 
-if($service->remove($_GET['id']) != 0) header('Location:../provider_list.php');
+if($service->delete_provider($_GET['email']) != 0) header('Location:../provider_list.php');

@@ -61,45 +61,23 @@ if($_SESSION['user'] != "administration@esgi.fr") header("Location:../../index.p
 
             $req = $database->getPdo()->query("SELECT * FROM user WHERE statut='provider'");
 
-            foreach($req as $service) {
+            foreach($req as $provider) {
 
                 echo '
                     <ul class="list-group mb-3">
                         <li class="list-group-item d-flex justify-content-between lh-condensed">
                             <div class="media">
-                                <img src="../../../ressources/pictures/'. $service['picture_name'] . '" 
-                                        alt="mengage" 
-                                        width="100px"
-                                        style="margin-right: 10px">
-                                <div class="media-body">
-                                
-                                    <h5>'. $service['name'] .'</h5>
-                                    '. $service['price'] .' € ';
-                                    switch ($service['flow_frequency_shape']){
-                                        case 'hours' :
-                                            echo 'de l\'heure. ';
-                                            break;
-                                        case 'day' :
-                                            echo 'la journée. ';
-                                            break;
-                                        default:
-                                            echo $service['flow_frequency_shape'] . ". ";
-                                    }
-
-                                    if($service['min_hours_required'] == 0) echo "Aucune heure minimum requise";
-                                    elseif($service['min_hours_required'] == 1) echo "Il faut réserver au moins " . $service['min_hours_required'] . " heure";
-                                    else echo "Il faut réserver au moins " . $service['min_hours_required'] . " heures";
-
-                        echo '</div>
+                                <h5>'. $provider['last_name'] . " " . $provider['first_name'] .'</h5>
+                                <p style="padding-left: 1em">'. $provider['address'] . ', ' . $provider['zip'] . ' ' . $provider['city'] .'</p>
                             </div>
                             <span>
-                                <a href="modify.php?id='. $service['id'] .'" class="btn btn-warning">
+                                <a href="modify.php?id='. $provider['id'] .'" class="btn btn-warning">
                                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                       <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
                                       <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
                                     </svg>
                                 </a>
-                                <a href="check/delete.php?id='. $service['id'] .'" class="btn btn-danger">X</a>
+                                <a href="check/delete.php?email='. $provider['email'] .'" class="btn btn-danger">X</a>
                             </span>
                         </li>
                     </ul>

@@ -24,144 +24,167 @@ if($_SESSION['user'] != "administration@esgi.fr") header("Location:../../index.p
     </div>
 
     <?php
-
-    $servicedata = $database->find("SELECT * FROM service WHERE id=?", [$_GET['id']]);
-
+    $req = $database->find('SELECT * FROM user where id=?', [$_GET['id']]);
     ?>
+
     <form class="form-signin"
-          action="check/modify.php"
+          action="check/modify.php?<?php echo $req['id'];?>"
           method="post"
           enctype="multipart/form-data">
 
-        <div class="sr-only">
-            <label for="inputId">id</label>
-            <input name="inputId" id="inputId" value="<?php echo $servicedata['id'];?>">
-        </div>
-        <div class="sr-only">
-            <label for="inputPictureName">actual picture name</label>
-            <input name="inputPictureName" id="inputPictureName" value="<?php echo $servicedata['picture_name'];?>">
-        </div>
-
         <div class="form-group row">
-            <label for="inputName"
+            <label for="inputLastName"
                    class="col-sm-2 col-form-label">
                 Nom
             </label>
             <div class="col-sm-10">
                 <input type="text"
                        class="form-control"
-                       name="inputName"
-                       id="inputName"
-                       value="<?php echo $servicedata['name'];?>"
+                       name="inputLastName"
+                       id="inputLastName"
+                       value="<?php echo $req['last_name'];?>"
                        required>
             </div>
         </div>
         <div class="form-group row">
-            <label for="inputPrice"
+            <label for="inputFirstName"
                    class="col-sm-2 col-form-label">
-                Prix (TTC)
+                Prénom
             </label>
             <div class="col-sm-10">
-                <input type="number"
+                <input type="text"
                        class="form-control"
-                       id="inputPrice"
-                       name="inputPrice"
-                       placeholder="€"
-                       value="<?php echo $servicedata['price'];?>"
+                       id="inputFirstName"
+                       name="inputFirstName"
+                       value="<?php echo $req['first_name'];?>"
                        required>
             </div>
         </div>
-
-
-        <fieldset class="form-group">
-            <div class="row">
-                <legend class="col-form-label col-sm-2 pt-0">Fréquence de paiement</legend>
-                <div class="col-sm-10">
-                    <div class="form-check">
-                        <input class="form-check-input"
-                               type="radio"
-                               name="inputFrequency"
-                               id="inputFrequencyHours"
-                               value="hours"
-                               <?php if ($servicedata['flow_frequency_shape'] == "hours") echo 'checked'?>
-                        >
-                        <label class="form-check-label" for="inputFrequencyHours">
-                            De l'heure
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input"
-                               type="radio"
-                               name="inputFrequency"
-                               id="inputFrequencyDay"
-                               value="day"
-                               <?php if ($servicedata['flow_frequency_shape'] == "day") echo 'checked'?>>
-                        <label class="form-check-label" for="inputFrequencyDay">
-                            La journée
-                        </label>
-                    </div>
-                    <div class="form-check disabled">
-                        <input class="form-check-input"
-                               type="radio"
-                               name="inputFrequency"
-                               id="inputFrequencyOther"
-                               value="other"
-                            <?php if ($servicedata['flow_frequency_shape'] != "hours" &&
-                                      $servicedata['flow_frequency_shape'] != "day") {
-                                echo 'checked';}?>
-                        >
-                        <label class="form-check-label" for="inputFrequencyOther">
-                            Autre : <input type="text" name="inputOtherFrequence" placeholder="ex : la visite"
-                                <?php if ($servicedata['flow_frequency_shape'] != "hours" &&
-                                    $servicedata['flow_frequency_shape'] != "day") {
-                                    echo 'value="' . $servicedata['flow_frequency_shape'] . '"';}?>
-                            >
-                        </label>
-                    </div>
-                </div>
-            </div>
-        </fieldset>
-
         <div class="form-group row">
-            <label for="inputMin"
+            <label for="inputEmail"
                    class="col-sm-2 col-form-label">
-                Heures minimum à commander (0 si aucune)
+                Adresse email
             </label>
             <div class="col-sm-10">
-                <input type="number"
+                <input type="email"
                        class="form-control"
-                       id="inputMin"
-                       name="inputMin"
-                       value="<?php echo $servicedata['min_hours_required'];?>"
+                       id="inputEmail"
+                       name="inputEmail"
+                       value="<?php echo $req['email'];?>"
+                       required
+                       readonly>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inputPhone"
+                   class="col-sm-2 col-form-label">
+                Numéro de téléphone
+            </label>
+            <div class="col-sm-10">
+                <input type="tel"
+                       class="form-control"
+                       id="inputPhone"
+                       name="inputPhone"
+                       value="<?php echo $req['phone'];?>"
                        required>
             </div>
         </div>
         <div class="form-group row">
-            <div class="col-sm-2">Photo d'illustration (si vous ne souhaitez pas la modifier n'insérez pas de photo)</div>
+            <label for="inputAddress"
+                   class="col-sm-2 col-form-label">
+                Adresse
+            </label>
             <div class="col-sm-10">
-                <input type="file"
-                       class="form-control-file"
-                       id="filePicture"
-                       name="filePicture">
+                <input type="text"
+                       class="form-control"
+                       id="inputAddress"
+                       name="inputAddress"
+                       value="<?php echo $req['address'];?>"
+                       required>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inputCity"
+                   class="col-sm-2 col-form-label">
+                Ville
+            </label>
+            <div class="col-sm-10">
+                <input type="text"
+                       class="form-control"
+                       id="inputCity"
+                       name="inputCity"
+                       value="<?php echo $req['city'];?>"
+                       required>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inputZip"
+                   class="col-sm-2 col-form-label">
+                Code postal
+            </label>
+            <div class="col-sm-10">
+                <input type="text"
+                       class="form-control"
+                       id="inputZip"
+                       name="inputZip"
+                       value="<?php echo $req['zip'];?>"
+                       required>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inputPassword"
+                   class="col-sm-2 col-form-label">
+                Nouveau mot de passe
+            </label>
+            <div class="col-sm-10">
+                <input type="password"
+                       class="form-control"
+                       id="inputPassword"
+                       name="inputPassword">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inputRePassword"
+                   class="col-sm-2 col-form-label">
+                Confirmer le nouveau mot de passe
+            </label>
+            <div class="col-sm-10">
+                <input type="password"
+                       class="form-control"
+                       id="inputRePassword"
+                       name="inputRePassword">
             </div>
         </div>
 
-
-        <p class="error text-center" style="color: red; padding: 1em;">
-            <b>
-                <?php
-                if(isset($_GET['error'])){
-                    if($_GET['error'] == "missing"){
-                        echo "Vous devez saisir toutes vos informations";
-                    }
-                    if($_GET['error'] == "database"){
-                        echo "Une erreur est servenue au niveau de la base de données";
-                    }
+        <br>
+        <p class="error text-center">
+            <?php
+            if(isset($_GET['error'])){
+                if($_GET['error'] == "missing"){
+                    echo "Vous devez saisir toutes vos informations";
                 }
-                ?>
-            </b>
+                if($_GET['error'] == "nomatch"){
+                    echo "Les mots de passes ne correspondent pas";
+                }
+                if($_GET['error'] == "notgood"){
+                    echo "Le mot de passe n'est pas le bon";
+                }
+                if($_GET['error'] == "notfound"){
+                    echo "Vous devez saisir votre mot de passe";
+                }
+                if($_GET['error'] == "database"){
+                    echo "Une erreur est servenue au niveau de la base de données, veuillez contacter le support";
+                }
+                if($_GET['error'] == "illegal"){
+                    echo "C'est pas bien de tricher";
+                }
+            }
+            ?>
         </p>
-        <button class="btn btn-lg btn-warning btn-block" type="submit">Modifier le service</button>
+        <p class="success text-center">
+            <?php if(isset($_GET['success'])) echo "Vos informations ont bien été modifiées"; ?>
+        </p>
+        <button class="btn btn-lg btn-warning btn-block" type="submit">Modifier vos informations</button>
     </form>
     <?php include('../../includes/footer.php');?>
 </div>
