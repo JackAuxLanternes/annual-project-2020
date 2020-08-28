@@ -96,7 +96,7 @@ if($_POST){
         $invoice->setFooternote("Perfect Concierge");
 
         $filename = "Abonnement_n.".$reference;
-        $invoice->render('../../../ressources/invoices/'.$filename.'_'.$_SESSION['user'],'F');
+        $invoice->render('../../../ressources/invoices/'.$filename.'_'.$req['id'],'F');
         header('Location:../../account/account.php');
     }
 }

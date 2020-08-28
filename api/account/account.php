@@ -320,8 +320,29 @@ include('../includes/header.php');
                 <?php
                 $files = scandir("../../ressources/invoices");
 
+                $userData = $database->find('SELECT id FROM user WHERE email=?', [$_SESSION['user']]);
+
                 foreach ($files as $item) {
-                    if(strpos($item, $_SESSION['user'])) echo "<br>" . $item;
+                    if(strpos($item, $userData['id'])) {
+                        echo '
+                        <ul class="list-group mb-3">
+                            <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                <div class="media">
+                                    <div class="media-body">
+                                        <h5>'. $item .'</h5>
+                                        </div>
+                                </div>
+                                <span>
+                                    <a href="../../ressources/invoices/'.$item.'" class="btn btn-warning" download>
+                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-download" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                      <path fill-rule="evenodd" d="M.5 8a.5.5 0 0 1 .5.5V12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8.5a.5.5 0 0 1 1 0V12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V8.5A.5.5 0 0 1 .5 8z"/>
+                                    </svg>
+                                    </a>
+                                </span>
+                            </li>
+                        </ul>
+                        ';
+                    }
                 }
                 ?>
             </div>
