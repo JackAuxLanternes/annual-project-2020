@@ -306,6 +306,7 @@ include('../includes/header.php');
                 }
                 else{
                     echo "Vous avez un abonnement : " . $subData['type'];
+                    echo "<div class=\"text-center\"><a href='check/remove_subscription.php' class='btn btn-warning'>Se désabonner</a></div>";
                 }?>
 
             </div>
@@ -316,6 +317,13 @@ include('../includes/header.php');
 
             <div class="text-center" style="padding: 2em;">
                 <h1>Factures</h1>
+                <?php
+                $files = scandir("../../ressources/invoices");
+
+                foreach ($files as $item) {
+                    if(strpos($item, $_SESSION['user'])) echo "<br>" . $item;
+                }
+                ?>
             </div>
 
         </div>

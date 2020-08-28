@@ -28,7 +28,7 @@ if ($image_info == false) {
     header('Location:../add_service.php?erreur=file_type');
 }
 
-/*$uploadfile = '../../../../ressources/pictures/' . $_FILES['filePicture']['name'];
+$uploadfile = '../../../../ressources/pictures/' . $_FILES['filePicture']['name'];
 if (move_uploaded_file($_FILES['filePicture']['tmp_name'], $uploadfile)) {
     echo "File is valid, and was successfully uploaded.\n";
 } else {
@@ -39,7 +39,7 @@ if (move_uploaded_file($_FILES['filePicture']['tmp_name'], $uploadfile)) {
     print_r($_FILES);
     print "</pre>";
     exit;
-}*/
+}
 
 $frenquency = "";
 if($_POST['inputFrequency'] == "other") $frenquency = $_POST['inputOtherFrequence'];

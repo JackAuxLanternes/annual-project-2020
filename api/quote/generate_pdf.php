@@ -18,7 +18,6 @@ $invoice->setType("Devis Perfect Concierge");
 $invoice->setReference("INV-" . $reference);
 $invoice->setDate(date('M dS, Y',time()));
 $invoice->setTime(date('h:i:s A',time()));
-$invoice->setDue(date('M dS, Y',strtotime('+3 months')));
 
 $invoice->setFrom(array("Vendeur","Perfect Concierge","242 Rue du Faubourg Saint-Antoine","75012 Paris","France"));
 
@@ -26,7 +25,7 @@ $req = $database->find('SELECT * FROM user where email=?', [$_SESSION['user']]);
 
 $customername = $req['last_name'] . " " . $req['first_name'];
 $address = $req['address'];
-$city = $req['city'];
+$city = $req['zip'] . " " . $req['city'];
 $total = 0;
 
 $invoice->setTo(array("Acheteur",$customername,$address,$city,"France"));

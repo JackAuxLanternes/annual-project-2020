@@ -22,24 +22,25 @@
                     else{
                         $userdata = $database->find("SELECT * FROM user WHERE email = '" . $_SESSION['user'] . "'");
 
-                        echo "
-                        <a class='dropdown-item' href='$currentdirectory/api/account/account.php'>Compte de " . $userdata['first_name'] . "</a>
-                        ";
+                        switch ($userdata['statut']){
+                            case "admin" :
+                                echo "
+                                <h6 class='dropdown-header'>Administration</h6>
+                                <a class='dropdown-item' href='$currentdirectory/api/admin/booking/booking_list.php'>Gérer les réservations</a>
+                                <a class='dropdown-item' href='$currentdirectory/api/admin/service/service_list.php'>Gérer les services</a>
+                                <a class='dropdown-item' href='$currentdirectory/api/admin/provider/provider_list.php'>Gérer les prestataires</a>
+                                ";
+                                break;
 
-                        if($userdata['statut'] == "admin"){
-                            echo "
-                            <h6 class='dropdown-header'>Administration</h6>
-                            <a class='dropdown-item' href='$currentdirectory/api/admin/booking/booking_list.php'>Gérer les réservations</a>
-                            <a class='dropdown-item' href='$currentdirectory/api/admin/service/provider_list.php'>Gérer les services</a>
-                            <a class='dropdown-item' href='$currentdirectory/api/admin/provider/provider_list.php'>Gérer les prestataires</a>
-                            ";
-                        }
+                            case "provider" :
+                                echo "
+                                <h6 class='dropdown-header'>Prestation</h6>
+                                <a class='dropdown-item' href='$currentdirectory/api/auth/signout.php'>Planning</a>
+                                ";
+                                break;
 
-                        if($userdata['statut'] == "provider"){
-                            echo "
-                            <h6 class='dropdown-header'>Prestation</h6>
-                            <a class='dropdown-item' href='$currentdirectory/api/auth/signout.php'>Planning</a>
-                            ";
+                            default:
+                                echo "<a class='dropdown-item' href='$currentdirectory/api/account/account.php'>Compte de " . $userdata['first_name'] . "</a>";
                         }
 
                         echo "

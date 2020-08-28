@@ -43,4 +43,8 @@ class subscriptionmanager extends form
         if($affectedrows == 0) return 'database';
         else return 'done';
     }
+    public function remove(string $customermail){
+        $userdata = $this->db->find('SELECT id FROM user where email=?', [$customermail]);
+        return $this->db->exec('DELETE FROM subscription where customer_id=?', [$userdata['id']]);
+    }
 }

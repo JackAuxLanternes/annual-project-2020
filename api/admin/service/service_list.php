@@ -83,10 +83,10 @@ if($_SESSION['user'] != "administration@esgi.fr") header("Location:../../index.p
                                             echo 'la journée. ';
                                             break;
                                         default:
-                                            echo $service['flow_frequency_shape'] . ". ";
+                                            echo 'par ' . $service['flow_frequency_shape'] . ". ";
                                     }
 
-                                    if($service['min_hours_required'] == 0) echo "Aucune heure minimum requise";
+                                    if($service['min_hours_required'] == 0) echo "Aucun minimum requis";
                                     elseif($service['min_hours_required'] == 1) echo "Il faut réserver au moins " . $service['min_hours_required'] . " heure";
                                     else echo "Il faut réserver au moins " . $service['min_hours_required'] . " heures";
 

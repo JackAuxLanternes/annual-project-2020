@@ -87,7 +87,7 @@ if($_SESSION['user'] != "administration@esgi.fr") header("Location:../../index.p
                                id="inputFrequencyOther"
                                value="other">
                         <label class="form-check-label" for="inputFrequencyOther">
-                            Autre : <input type="text" name="inputOtherFrequence" placeholder="ex : la visite">
+                            Autre : par<input type="text" name="inputOtherFrequence" placeholder="ex : visite">
                         </label>
                     </div>
                 </div>
@@ -96,7 +96,7 @@ if($_SESSION['user'] != "administration@esgi.fr") header("Location:../../index.p
         <div class="form-group row">
             <label for="inputMin"
                    class="col-sm-2 col-form-label">
-                Heures minimum à commander (0 si aucune)
+                Minimum à commander (0 si aucun.e)
             </label>
             <div class="col-sm-10">
                 <input type="number"
