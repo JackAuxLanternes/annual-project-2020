@@ -75,6 +75,7 @@ if($_SESSION['user'] != "administration@esgi.fr") header("Location:../../index.p
                 <?php
                 switch ($_GET['page']){
                     case 1:
+                        echo "<h5>Sélectionnez le client</h5>";
                         $req = $database->getPdo()->query("SELECT * FROM user where statut='customer'");
 
                         foreach ($req as $customer){
@@ -101,6 +102,7 @@ if($_SESSION['user'] != "administration@esgi.fr") header("Location:../../index.p
                         }
                         break;
                     case 2:
+                        echo "<h5>Sélectionner le service</h5>";
                         $req = $database->getPdo()->query("SELECT * FROM service");
 
                         foreach ($req as $service){
@@ -126,6 +128,7 @@ if($_SESSION['user'] != "administration@esgi.fr") header("Location:../../index.p
                         }
                         break;
                     case 3:
+                        echo "<h5>Veuillez saisir les informations requises</h5>";
                         $subData = $database->find('SELECT * FROM subscription WHERE customer_id = ?', [$_SESSION['customer_id']]);
 
                         echo '
@@ -186,6 +189,7 @@ if($_SESSION['user'] != "administration@esgi.fr") header("Location:../../index.p
                         ';
                         break;
                     case 4:
+                        echo "<h5>Sélectionnez un prestataire pour ce service</h5>";
                         $req = $database->getPdo()->query("SELECT * FROM user where statut='provider'");
 
                         foreach ($req as $provider){
