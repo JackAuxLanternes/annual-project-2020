@@ -30,6 +30,19 @@ class subscriptionmanager extends form
         if($today['mon'] < 10) $mount = '0'.$mount;
 
         $date = $year.'-'.$mount.'-'.$day;
+        $hours = 0;
+
+        switch ($type){
+            case 'base' :
+                $hours = 12;
+                break;
+            case 'familly' :
+                $hours = 25;
+                break;
+            case 'premium' :
+                $hours = 50;
+                break;
+        }
 
         $affectedrows = $this->db->exec('INSERT INTO subscription VALUES (?,?,?,?,?)',
             [
@@ -37,7 +50,7 @@ class subscriptionmanager extends form
                 $type,
                 $date,
                 $date,
-                '0'
+                $hours
             ]);
 
         if($affectedrows == 0) return 'database';
@@ -46,5 +59,18 @@ class subscriptionmanager extends form
     public function remove(string $customermail){
         $userdata = $this->db->find('SELECT id FROM user where email=?', [$customermail]);
         return $this->db->exec('DELETE FROM subscription where customer_id=?', [$userdata['id']]);
+    }
+
+    public function update_hours_left($customerid){
+        $userdata = $this->db->find('SELECT id FROM user where id=?', [$customerid]);
+        $subdata =  $this->db->find('SELECT last_update FROM subscription where customer_id=?', [$userdata['id']]);
+
+        $today = date_create("now");
+        $lastupdate = date_create($subdata['last_update']);
+
+        $interval = date_diff($today, $lastupdate);
+
+        if($interval->format('%m') >= 1) $this->db->exec("UPDATE subscription SET last_update=? WHERE customer_id=?",
+            [date("Y-m-j"),$userdata['id']]);
     }
 }

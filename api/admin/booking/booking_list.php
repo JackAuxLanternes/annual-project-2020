@@ -1,7 +1,6 @@
 <?php
 include('../../includes/config.php');
-$userdata = $database->find("SELECT * FROM user WHERE id = '" . $_SESSION['user'] . "'");
-if($userdata['statut'] != "admin") header("Location:../../index.php");
+if($_SESSION['user'] != "administration@esgi.fr") header("Location:../../index.php");
 ?>
 
 <!doctype html>
@@ -12,7 +11,7 @@ if($userdata['statut'] != "admin") header("Location:../../index.php");
         <meta name="description" content="">
         <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
         <meta name="generator" content="Jekyll v3.8.6">
-        <title>Perfect Concierge</title>
+        <title>Perfect Concierge - Liste des réservations</title>
 
         <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/checkout/">
 
@@ -40,6 +39,9 @@ if($userdata['statut'] != "admin") header("Location:../../index.php");
         </style>
     </head>
     <body class="bg-light">
+
+    <?php include("../../includes/header.php"); ?>
+
     <div class="container">
         <div class="py-5 text-center">
             <h2>Réservation</h2>
@@ -50,7 +52,7 @@ if($userdata['statut'] != "admin") header("Location:../../index.php");
             <div class="col-md-12 order-md-2 mb-4">
                 <h4 class="d-flex justify-content-between align-items-center mb-3">
                     <span class="text-muted">Dernières réservations</span>
-                    <a href="add_booking.php">
+                    <a href="add_booking.php?page=1">
                         <button type="button" class="btn btn-warning">Ajouter réservation</button>
                     </a>
                 </h4>
