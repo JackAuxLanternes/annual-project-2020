@@ -55,4 +55,8 @@ class bookingmanager extends form
 
         return 'done';
     }
+
+    public function delete(string $id){
+        return $this->db->exec("DELETE FROM booking WHERE id = '$id'");
+    }
 }
