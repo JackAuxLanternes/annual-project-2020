@@ -305,7 +305,8 @@ include('../includes/header.php');
                 <?php
                 }
                 else{
-                    echo "Vous avez un abonnement : " . $subData['type'];
+                    echo "<p>Vous avez un abonnement : " . $subData['type'] . "</p>";
+                    echo "<p>Il vous reste " . $subData['hours_left'] . " heurs</p>";
                     echo "<div class=\"text-center\"><a href='check/remove_subscription.php' class='btn btn-warning'>Se désabonner</a></div>";
                 }?>
 
