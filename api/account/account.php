@@ -314,48 +314,46 @@ include('../includes/header.php');
 
             <div style="padding: 2em;">
                 <div class="text-center"><h1>Historique des commandes</h1></div>
-                <?php
-                $files = scandir("../../ressources/invoices");
+                <div class="col-md-12 order-md-2 mb-4">
+                    <ul class="list-group mb-3">
+                        <?php
+                        $userData = $database->find('SELECT id FROM user WHERE email=?', [$_SESSION['user']]);
+                        $bookdata = $database->getPdo()->query("SELECT * FROM booking WHERE customer_id='".$userData['id']."'");
 
-                $userData = $database->find('SELECT id FROM user WHERE email=?', [$_SESSION['user']]);
-                $bookdata = $database->getPdo()->query("SELECT * FROM booking WHERE customer_id='".$userData['id']."'");
+                        foreach ($bookdata as $booking) {
+                            $service = $database->find('SELECT * FROM service WHERE id=?', [$booking['service_id']]);?>
+                                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                    <div>
+                                        <h6 class="my-0"><?php echo $service['name'];?></h6>
+                                        <small class="text-muted">
+                                            <?php
+                                            echo $booking['datetime'];
 
-                foreach ($bookdata as $booking) {
-                    $service = $database->find('SELECT * FROM service WHERE id=?', [$booking['service_id']]);?>
-                    <div class="col-md-12 order-md-2 mb-4">
-                        <ul class="list-group mb-3">
-                            <li class="list-group-item d-flex justify-content-between lh-condensed">
-                                <div>
-                                    <h6 class="my-0"><?php echo $service['name'];?></h6>
-                                    <small class="text-muted">
-                                        <?php
-                                        echo $booking['datetime'];
-
-                                        if($booking['provider_id'] === '5c589a7f-2ee0-4497-b7b9-b75caaaac461') echo ", statut : En attente de prise en charge";
-                                        else echo ", statut : Acceptée";
-                                        ?>
-                                    </small>
-                                </div>
-                                <span class="text-muted"><?php echo $booking['quantity_booked']*$service['price']?> €</span>
-                            </li>
-                        </ul>
-                    </div>
-                    <?php
-                }
-                ?>
+                                            if($booking['provider_id'] === '5c589a7f-2ee0-4497-b7b9-b75caaaac461') echo ", statut : En attente de prise en charge";
+                                            else echo ", statut : Acceptée";
+                                            ?>
+                                        </small>
+                                    </div>
+                                    <span class="text-muted"><?php echo $booking['quantity_booked']*$service['price']?> €</span>
+                                </li>
+                            <?php
+                        }
+                        ?>
+                    </ul>
+                </div>
             </div>
 
             <div class="text-center" style="padding: 2em;">
                 <h1>Factures</h1>
-                <?php
-                $files = scandir("../../ressources/invoices");
+                <ul class="list-group mb-3">
+                    <?php
+                    $files = scandir("../../ressources/invoices");
 
-                $userData = $database->find('SELECT id FROM user WHERE email=?', [$_SESSION['user']]);
+                    $userData = $database->find('SELECT id FROM user WHERE email=?', [$_SESSION['user']]);
 
-                foreach ($files as $item) {
-                    if(strpos($item, $userData['id'])) {
-                        echo '
-                        <ul class="list-group mb-3">
+                    foreach ($files as $item) {
+                        if(strpos($item, $userData['id'])) {
+                            echo '
                             <li class="list-group-item d-flex justify-content-between lh-condensed">
                                 <div class="media">
                                     <div class="media-body">
@@ -372,11 +370,11 @@ include('../includes/header.php');
                                     </a>
                                 </span>
                             </li>
-                        </ul>
-                        ';
+                            ';
+                        }
                     }
-                }
-                ?>
+                    ?>
+                </ul>
             </div>
 
         </div>

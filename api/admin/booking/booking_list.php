@@ -57,24 +57,28 @@ if($_SESSION['user'] != "administration@esgi.fr") header("Location:../../index.p
                     </a>
                 </h4>
                 <ul class="list-group mb-3">
-                    <!--    Témoin
+                    <?php
+                    $bookdata = $database->getPdo()->query("SELECT * FROM booking");
+                    foreach ($bookdata as $booking) {
+                        $service = $database->find('SELECT * FROM service WHERE id=?', [$booking['service_id']]);?>
 
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
-                            <h6 class="my-0">Product name</h6>
-                            <small class="text-muted">Brief description</small>
-                        </div>
-                        <span class="text-muted">$12</span>
-                    </li>
+                        <li class="list-group-item d-flex justify-content-between lh-condensed">
+                            <div>
+                                <h6 class="my-0"><?php echo $service['name'];?></h6>
+                                <small class="text-muted">
+                                    <?php
+                                    echo $booking['datetime'];
 
-                    -->
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
-                            <h6 class="my-0">Garde d'enfant</h6>
-                            <small class="text-muted">CERDAN Laurent, pour le 19/01/2021</small>
-                        </div>
-                        <span class="text-muted">TORAND Camille</span>
-                    </li>
+                                    if($booking['provider_id'] === '5c589a7f-2ee0-4497-b7b9-b75caaaac461') echo ", statut : En attente de prise en charge";
+                                    else echo ", statut : Acceptée";
+                                    ?>
+                                </small>
+                            </div>
+                            <span class="text-muted"><?php echo $booking['quantity_booked']*$service['price']?> €</span>
+                        </li>
+                    <?php
+                    }
+                    ?>
                 </ul>
             </div>
         </div>
