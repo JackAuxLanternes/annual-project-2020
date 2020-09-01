@@ -115,19 +115,13 @@ $subdata = $database->find('SELECT hours_left FROM subscription where customer_i
                 if($subdata === null){
                     ?>
                     <div><div id="card-element"></div></div>
-                    <div class="text-center"><button type="submit" class="btn btn-warning" style="margin: 1em">Payer</button></div>
 
                     <script src="https://js.stripe.com/v3/"></script>
                     <script src="../../vendor/token.js" type="text/javascript"></script>
                     <?php
                 }
-
-                $req = $database->getPdo()->query('SELECT * FROM service');
-
-                foreach($req as $service) {
-
-                }
                 ?>
+                    <div class="text-center"><button type="submit" class="btn btn-warning" style="margin: 1em">Payer</button></div>
                 </ul>
             </form>
         </div>

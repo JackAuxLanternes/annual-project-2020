@@ -91,7 +91,7 @@ if($_POST){
         $invoice->addItem($item,"Valable 1 an",1,0,$price,0,$price);
         $invoice->addTotal("Total due",$price,true);
         $invoice->addBadge("Payé");
-        $invoice->addTitle("Information important");
+        $invoice->addTitle("Information importante");
         $invoice->addParagraph("Votre abonnement ne peut être remboursé");
         $invoice->setFooternote("Perfect Concierge");
 
