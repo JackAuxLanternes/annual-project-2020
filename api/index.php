@@ -58,7 +58,7 @@
                 elseif($service['min_hours_required'] > 1) echo "Il faut réserver au moins " . $service['min_hours_required'] . " heures";
 
                 echo '            </p>
-                    <a href="booking/purchase_booking.php?item='. $service['id'] .'" class="btn btn-warning" style="margin-bottom: 1em;">Réserver</a>
+                    <a href="booking/purchase_service.php?item='. $service['id'] .'" class="btn btn-warning" style="margin-bottom: 1em;">Réserver</a>
                              </div>
                         </li>
                     </ul>

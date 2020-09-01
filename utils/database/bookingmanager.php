@@ -22,6 +22,7 @@ class bookingmanager extends form
         string $date,
         string $time
     ){
+        if($provider_id == 'empty') $provider_id = "5c589a7f-2ee0-4497-b7b9-b75caaaac461";
         $affectedrows = $this->db->exec('INSERT INTO booking VALUES (?,?,?,?,?,?,?)',
             [
                 $this->db->uuid(),
@@ -36,17 +37,22 @@ class bookingmanager extends form
         if($affectedrows == 0) return 'database';
 
         $subscription = new subscriptionmanager();
-        $subscription->update_hours_left($customer_id);
 
         $userdata = $this->db->find('SELECT hours_left FROM subscription WHERE customer_id=?', [$customer_id]);
 
-        $affectedrows = $this->db->exec('UPDATE subscription set hours_left=? WHERE customer_id=?',
-            [
-                $userdata['hours_left']-$quantity_booked,
-                $customer_id
-            ]);
+        if($userdata !== null){
 
-        if($affectedrows == 0) return 'database';
-        else return 'done';
+            $subscription->update_hours_left($customer_id);
+
+            $affectedrows = $this->db->exec('UPDATE subscription set hours_left=? WHERE customer_id=?',
+                [
+                    $userdata['hours_left']-$quantity_booked,
+                    $customer_id
+                ]);
+
+            if($affectedrows == 0) return 'database';
+        }
+
+        return 'done';
     }
 }

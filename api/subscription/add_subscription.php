@@ -61,7 +61,7 @@ if($subData !== null) header('Location:../index.php');
     </form>
 
     <script src="https://js.stripe.com/v3/"></script>
-    <script src="token.js" type="text/javascript"></script>
+    <script src="../../vendor/token.js" type="text/javascript"></script>
     <?php include('../includes/footer.php');?>
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
