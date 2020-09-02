@@ -11,7 +11,7 @@ if($_SESSION['user'] != "administration@esgi.fr") header("Location:../../index.p
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v3.8.6">
-    <title>Perfect Concierge</title>
+    <title>Perfect Concierge - Ajouter une réservation</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/checkout/">
 
@@ -45,7 +45,7 @@ if($_SESSION['user'] != "administration@esgi.fr") header("Location:../../index.p
 <div class="container">
     <div class="py-5 text-center">
         <h2>Réservation</h2>
-        <p class="lead">Ajouter un réservation</p>
+        <p class="lead">Ajouter une réservation</p>
     </div>
 
     <div class="row">

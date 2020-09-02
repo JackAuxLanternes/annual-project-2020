@@ -15,7 +15,7 @@ switch ($_GET['page']){
             $_SESSION['customer_id'] = $_POST['radioCustomer'];
             header('Location:../add_booking.php?page=2');
         }
-        else header('Location:../addbooking.php?page=1&error=missing');
+        else header('Location:../add_booking.php?page=1&error=missing');
         exit();
 
     case 2:
@@ -23,7 +23,7 @@ switch ($_GET['page']){
             $_SESSION['service_id'] = $_POST['radioService'];
             header('Location:../add_booking.php?page=3');
         }
-        else header('Location:../addbooking.php?page=2&error=missing');
+        else header('Location:../add_booking.php?page=2&error=missing');
         exit();
 
     case 3:
