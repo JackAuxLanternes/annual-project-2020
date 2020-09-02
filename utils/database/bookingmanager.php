@@ -68,6 +68,12 @@ class bookingmanager extends form
         else return 'database';
     }
 
+    public function add_provider(string $provider_id){
+        if($this->db->exec("UPDATE booking SET provider_id=? WHERE id=?", [$provider_id, $_GET['id']]) != 0)
+            return 'done';
+        else return 'database';
+    }
+
     public function delete(string $id){
         return $this->db->exec("DELETE FROM booking WHERE id = '$id'");
     }

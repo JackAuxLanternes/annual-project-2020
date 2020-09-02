@@ -40,7 +40,7 @@ if($_SESSION['user'] != "administration@esgi.fr") header("Location:../../index.p
 </head>
 <body class="bg-light">
 
-<?php include("../../includes/header.php"); ?>
+<?php include("../includes/header.php"); ?>
 
 <div class="container">
     <div class="py-5 text-center">

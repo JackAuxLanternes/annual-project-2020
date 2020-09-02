@@ -47,8 +47,7 @@ if($userData['statut'] !== 'provider') header('Location:../index.php');
 
 <div class="container">
     <div class="py-5 text-center">
-        <h2>Réservation</h2>
-        <p class="lead">Voir et ajouter des réservations</p>
+        <h2>Réservations en attente</h2>
     </div>
 
     <div class="row">
