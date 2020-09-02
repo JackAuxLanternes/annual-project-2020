@@ -20,7 +20,7 @@
                         ";
                     }
                     else{
-                        $userdata = $database->find("SELECT * FROM user WHERE email = '" . $_SESSION['user'] . "'");
+                        $userdata = $database->find("SELECT id,statut FROM user WHERE email = '" . $_SESSION['user'] . "'");
 
                         switch ($userdata['statut']){
                             case "admin" :
@@ -35,7 +35,7 @@
                             case "provider" :
                                 echo "
                                 <h6 class='dropdown-header'>Prestation</h6>
-                                <a class='dropdown-item' href='$currentdirectory/api/provider/planning.php'>Planning</a>
+                                <a class='dropdown-item' href='$currentdirectory/api/provider/planning.php?".$userdata['id']."'>Planning</a>
                                 <a class='dropdown-item' href='$currentdirectory/api/provider/waiting_booking.php'>Réservations en attente</a>
                                 <a class='dropdown-item' href='$currentdirectory/api/provider/intervention.php'>Interventions</a>
                                 ";
