@@ -57,11 +57,11 @@ $product = $service->add(
 );
 
 if($product == "done"){
-    //header('Location:../provider_list.php');
+    header('Location:../provider_list.php');
     exit();
 }
 else{
-    //header('Location:../add_service.php?error=' . $product);
+    header('Location:../add_service.php?error=' . $product);
 }
 /*if(!isset($_POST['inputProductName'])){
     echo "Missing inputProductName";

@@ -20,7 +20,7 @@
                         ";
                     }
                     else{
-                        $userdata = $database->find("SELECT id,statut FROM user WHERE email = '" . $_SESSION['user'] . "'");
+                        $userdata = $database->find("SELECT id,first_name,statut FROM user WHERE email = '" . $_SESSION['user'] . "'");
 
                         switch ($userdata['statut']){
                             case "admin" :

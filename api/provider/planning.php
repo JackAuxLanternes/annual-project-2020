@@ -35,12 +35,9 @@ if($userData['statut'] === 'customer') header('Location:../index.php');
 include("../includes/header.php");
 $today = date('y-m-d');
 $todayPlusSevenDays = date('y-m-d',strtotime('+7 day',strtotime('today')));
-$query = "SELECT *, cast(datetime as date), cast(datetime as time) FROM booking WHERE provider_id='".$_GET['id']."' AND (datetime BETWEEN '".$today."' AND '".$todayPlusSevenDays."')";
 
 $weekmultiplier = 0;
 if(isset($_GET['week'])) $weekmultiplier = $_GET['week'];
-
-$bookdata = $database->getPdo()->query($query);
 ?>
 
 <div class="container text-center">
@@ -66,36 +63,59 @@ $bookdata = $database->getPdo()->query($query);
         </thead>
         <tbody>
         <tr>
+            <td><b>Lundi</b></td>
+            <td><b>Mardi</b></td>
+            <td><b>Mercredi</b></td>
+            <td><b>Jeudi</b></td>
+            <td><b>Vendredi</b></td>
+            <td><b>Samedi</b></td>
+            <td><b>Dimanche</b></td>
+        </tr>
+        <tr>
             <?php
             for($i = 0; $i < 7; $i += 1){
-                $day = 7*$weekmultiplier + $i;
-                $thisday = strtotime('+'.$day.' day',strtotime('today'));
+                $day = date('w')-1%7;
+                $week_start = date('y-m-d', strtotime('-'.$day.' days'));
+                $dayoftheweek = 7*$weekmultiplier + $i;
+
+                $thisday = strtotime('+'.$dayoftheweek.' day', strtotime($week_start));
                 echo "<td>".date('d/m',$thisday)."</td>";
             }
             ?>
         </tr>
         <tr>
+        <?php
 
-            <?php
+        for($i = 0; $i < 7; $i += 1){
+            echo "<td>";
+
+            $day = date('w')-1%7;
+            $week_start = date('y-m-d', strtotime('-'.$day.' days'));
+            $dayoftheweek = 7*$weekmultiplier + $i;
+
+            $thisday = date('Y-m-d', strtotime('+'.$dayoftheweek.' day', strtotime($week_start)));
+
+            $query = "SELECT *, cast(datetime as date), cast(datetime as time) FROM booking WHERE provider_id='".$_GET['id']."' AND date(datetime) = '".$thisday."' ORDER BY datetime";
+            $bookdata = $database->getPdo()->query($query);
+
             foreach ($bookdata as $booking){
+
+                echo "<div style='padding: 1em; background-color: #ffc107'>";
 
                 $service = $database->find('SELECT name FROM service WHERE id=?',[$booking['service_id']]);
 
-                for($i = 0; $i < 7; $i += 1){
-                    $day = 7*$weekmultiplier + $i;
-                    $thisday = strtotime('+'.$day.' day',strtotime('today'));
-                    if(date('Y-m-d', $thisday) == $booking['cast(datetime as date)']){?>
-                        <td>
-                            <h6 class="my-0"><?php echo $service['name']. " par " . $userData['first_name'] . " " . $userData['last_name'];?></h6>
-                            <small class="text-muted">
-                                <?php echo $booking['cast(datetime as time)'] . " à " . $booking['address'];?>
-                            </small>
-                            </td>
-            <?php
-                    }
+                if($thisday == $booking['cast(datetime as date)']){?>
+                        <h6 class="my-0"><?php echo $service['name']. " par " . $userData['first_name'] . " " . $userData['last_name'];?></h6>
+                        <small class="text-muted">
+                            <?php echo $booking['cast(datetime as time)'] . " à " . $booking['address'];?>
+                        </small>
+                    <?php
                 }
+                echo "</div>";
             }
-            ?>
+            echo "</td>";
+        }
+        ?>
         </tr>
         </tbody>
     </table>
