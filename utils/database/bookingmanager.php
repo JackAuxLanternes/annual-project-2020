@@ -77,4 +77,10 @@ class bookingmanager extends form
     public function delete(string $id){
         return $this->db->exec("DELETE FROM booking WHERE id = '$id'");
     }
+
+    public function remove_provider(string $provider_id){
+        if($this->db->exec("UPDATE booking SET provider_id='5c589a7f-2ee0-4497-b7b9-b75caaaac461' WHERE id=?", [$_GET['id']]) != 0)
+            return 'done';
+        else return 'database';
+    }
 }
