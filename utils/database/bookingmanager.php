@@ -56,6 +56,18 @@ class bookingmanager extends form
         return 'done';
     }
 
+    public function modify(
+        string $book_id,
+        string $provider_id,
+        string $address,
+        string $date,
+        string $time
+    ){
+        if($this->db->exec("UPDATE booking SET provider_id=?, address=?, datetime=? WHERE id=?", [$provider_id, $address, $date.' '.$time, $book_id]) != 0)
+            return 'done';
+        else return 'database';
+    }
+
     public function delete(string $id){
         return $this->db->exec("DELETE FROM booking WHERE id = '$id'");
     }

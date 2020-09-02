@@ -9,4 +9,4 @@ require_once __DIR__ . '/../../../../utils/database/bookingmanager.php';
 
 $service = new bookingmanager();
 
-if($service->delete_provider($_GET['id']) != 0) header('Location:../booking_list.php');
+if($service->delete($_GET['id']) != 0) header('Location:../booking_list.php');
