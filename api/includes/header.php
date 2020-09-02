@@ -35,7 +35,9 @@
                             case "provider" :
                                 echo "
                                 <h6 class='dropdown-header'>Prestation</h6>
-                                <a class='dropdown-item' href='$currentdirectory/api/auth/signout.php'>Planning</a>
+                                <a class='dropdown-item' href='$currentdirectory/api/provider/planning.php'>Planning</a>
+                                <a class='dropdown-item' href='$currentdirectory/api/provider/waiting_booking.php'>Réservations en attente</a>
+                                <a class='dropdown-item' href='$currentdirectory/api/provider/intervention.php'>Interventions</a>
                                 ";
                                 break;
 
