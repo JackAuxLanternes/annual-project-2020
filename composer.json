@@ -1,6 +1,7 @@
 {
     "require": {
         "stripe/stripe-php": "^7.49",
-        "hutnikau/job-scheduler": "^0.6.1"
+        "hutnikau/job-scheduler": "^0.6.1",
+      "ext-pdo": "*"
     }
 }

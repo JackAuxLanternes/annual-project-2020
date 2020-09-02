@@ -204,16 +204,22 @@ if($_SESSION['user'] != "administration@esgi.fr") header("Location:../../index.p
                                         </div>
                                     </li>
                                 ';
-                            echo $item;
                             if(strpos($_SESSION['inputAddress'], $provider['city']) || strpos($_SESSION['inputAddress'], $provider['zip'])){
-                                $bookdata = $database->internalExec("SELECT datetime FROM booking WHERE 
-                                                                provider_id=? AND
-                                                                datetime LIKE '%".$_SESSION['inputDate']."%'",
-                                                                [$provider['id']]);
+                                $query = "SELECT cast(datetime as time), quantity_booked FROM booking WHERE 
+                                                                provider_id='".$provider['id']."' AND
+                                                                datetime LIKE '%".$_SESSION['inputDate']."%'";
+                                $bookdata = $database->getPdo()->query($query);
                                 if($bookdata == null) echo $item;
                                 else{
                                     foreach ($bookdata as $booking){
-
+                                        if(strtotime($booking['cast(datetime as time)']) < strtotime($_SESSION['inputTime'])) {
+                                            if(strtotime('+'.$booking['quantity_booked'].' hour',strtotime($booking['cast(datetime as time)'])) < strtotime($_SESSION['inputTime']))
+                                                echo $item;
+                                        }
+                                        else{
+                                            if(strtotime($booking['cast(datetime as time)']) > strtotime('+'.$_SESSION['inputQuantity'].' hour',strtotime($_SESSION['inputTime'])))
+                                                echo $item;
+                                        }
                                     }
                                 }
                             }

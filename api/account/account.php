@@ -1,6 +1,6 @@
 <?php
 include('../includes/config.php');
-if(!$connected) header('Location:../index.php');
+if(!$connected) header('Location:../../index.php');
 ?>
 
 <!Doctype HTML>
